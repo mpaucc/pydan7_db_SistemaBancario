@@ -1,81 +1,137 @@
-BankCorp es una entidad financiera que ofrece productos como cuentas de ahorro, créditos personales, hipotecarios y empresariales. Debido al crecimiento de sus operaciones digitales, el banco necesita mejorar su sistema de gestión de préstamos y pagos, incorporando además mecanismos de detección de transacciones sospechosas para prevenir fraudes.
+# Caso Propuesto
 
-Actualmente, el sistema presenta limitaciones en el seguimiento del comportamiento financiero de los clientes y en la identificación temprana de actividades inusuales.
+## Sistema de Gestión de Cuentas de Ahorro y Movimientos Financieros Bancarios
 
-🎯 Objetivo del Sistema
+### 1. Contexto del negocio
 
-Diseñar un sistema que permita:
+El banco ficticio **FinanPerú** desea implementar un sistema de información para administrar las cuentas de ahorro de sus clientes. Actualmente, el banco maneja miles de operaciones diarias relacionadas con depósitos, retiros, transferencias y pagos de servicios, por lo que necesita una base de datos eficiente y segura que permita almacenar, consultar y analizar la información financiera.
 
-Gestionar solicitudes y aprobaciones de préstamos.
-Registrar pagos de cuotas de préstamos.
-Monitorear transacciones financieras.
-Detectar operaciones sospechosas basadas en reglas de negocio.
-👥 Actores del Sistema
-Cliente: Persona natural o jurídica que solicita préstamos y realiza pagos.
-Analista de Crédito: Evalúa y aprueba/rechaza solicitudes.
-Sistema de Monitoreo de Fraude: Detecta patrones sospechosos automáticamente.
-Administrador del Banco: Supervisa operaciones y reportes.
-🔄 Procesos Principales
-1. Solicitud de Préstamo
-El cliente solicita un préstamo indicando:
-Monto solicitado
-Tipo de préstamo (personal, hipotecario, etc.)
-Plazo
-El sistema registra la solicitud y la envía al analista.
-2. Evaluación y Aprobación
-El analista revisa:
-Historial crediticio
-Ingresos del cliente
-Nivel de riesgo
-Luego:
-Aprueba → se genera el préstamo
-Rechaza → se registra el motivo
-3. Desembolso del Préstamo
-Si es aprobado:
-Se crea una cuenta de préstamo
-Se deposita el monto en la cuenta del cliente
-Se genera un cronograma de pagos (cuotas)
-4. Registro de Pagos
-El cliente realiza pagos periódicos:
-Fecha de pago
-Monto pagado
-Medio de pago (transferencia, efectivo, etc.)
-El sistema:
-Actualiza saldo pendiente
-Marca cuotas como pagadas o vencidas
-5. Monitoreo de Transacciones
-El sistema analiza operaciones como:
-Depósitos
-Transferencias
-Pagos de préstamos
-6. Detección de Operaciones Sospechosas 🚨
-El sistema identifica comportamientos inusuales, por ejemplo:
-Transferencias de alto monto en horarios inusuales (madrugada).
-Pagos de préstamos con cuentas no registradas previamente.
-Movimientos repetitivos desde diferentes cuentas hacia un mismo destino.
-Actividad fuera del patrón histórico del cliente.
-Cuando se detecta una operación sospechosa:
-Se genera una alerta
-Se registra el evento
-Se notifica al área de auditoría o fraude
-📊 Reglas de Negocio Iniciales
-Un cliente puede tener múltiples préstamos.
-Un préstamo genera múltiples cuotas.
-Cada cuota puede tener uno o varios pagos.
-Una transacción puede estar asociada a un pago.
-Una operación sospechosa debe estar vinculada a una transacción.
-El sistema debe guardar el historial de comportamiento del cliente (para análisis de fraude).
-📁 Posibles Entidades (para el siguiente paso)
-Este caso te permitirá crear fácilmente más de 10 tablas, por ejemplo:
-Cliente
-Cuenta
-Préstamo
-SolicitudPréstamo
-Cuota
-Pago
-Transacción
-TipoTransacción
-AlertaFraude
-ReglaFraude
-Analista
-EvaluaciónCrédito
+El sistema debe permitir controlar:
+
+* Registro de clientes.
+* Apertura y administración de cuentas de ahorro.
+* Manejo de tarjetas bancarias.
+* Registro de transacciones financieras.
+* Control de agencias bancarias.
+* Gestión de empleados bancarios.
+* Seguridad y detección de operaciones sospechosas.
+
+Además, el banco busca fortalecer su sistema de prevención de fraude financiero mediante reglas de monitoreo sobre operaciones inusuales.
+
+---
+
+# 2. Problema actual
+
+El banco presenta los siguientes inconvenientes:
+
+* Información duplicada de clientes.
+* Errores en el registro de transacciones.
+* Dificultad para rastrear movimientos sospechosos.
+* Lentitud en consultas históricas.
+* Falta de integración entre agencias.
+* Poca trazabilidad de operaciones realizadas por cajeros o canales virtuales.
+
+Debido a ello, se propone diseñar un modelo de base de datos relacional que permita centralizar toda la información financiera y mejorar la toma de decisiones.
+
+---
+
+# 3. Objetivo del sistema
+
+Diseñar una base de datos para un sistema bancario de cuentas de ahorro que permita:
+
+* Administrar clientes y sus productos financieros.
+* Registrar operaciones bancarias.
+* Controlar saldos y movimientos.
+* Gestionar tarjetas y accesos digitales.
+* Detectar actividades sospechosas.
+* Generar reportes financieros y auditorías.
+
+---
+
+# 4. Alcance del proyecto
+
+El sistema abarcará:
+
+## Módulos principales
+
+### a) Gestión de Clientes
+
+Permite registrar información personal del cliente:
+
+* DNI
+* Nombres
+* Dirección
+* Teléfono
+* Correo
+* Fecha de nacimiento
+
+---
+
+### b) Gestión de Cuentas de Ahorro
+
+Permite:
+
+* Apertura de cuentas
+* Consulta de saldo
+* Estado de cuenta
+* Tipo de moneda
+* Estado de la cuenta
+
+---
+
+### c) Gestión de Transacciones
+
+Registrar:
+
+* Depósitos
+* Retiros
+* Transferencias
+* Pago de servicios
+* Consumos con tarjeta
+
+Cada operación debe registrar:
+
+* Fecha y hora
+* Monto
+* Canal utilizado
+* Agencia
+* Usuario o cajero
+
+---
+
+### d) Gestión de Tarjetas Bancarias
+
+Control de:
+
+* Tarjetas débito
+* Fecha de vencimiento
+* Estado de la tarjeta
+* Intentos fallidos
+* Bloqueos
+
+---
+
+### e) Seguridad y Prevención de Fraude
+
+El sistema debe generar alertas cuando:
+
+* Un cliente realiza múltiples retiros en corto tiempo.
+* Existen transferencias de alto monto fuera del horario habitual.
+* Se detectan operaciones desde distintas ciudades en pocos minutos.
+* Hay múltiples intentos fallidos de autenticación.
+* Una cuenta recibe depósitos inusuales respecto a su historial.
+
+---
+
+# 5. Reglas de negocio
+
+1. Un cliente puede tener varias cuentas de ahorro.
+2. Una cuenta pertenece únicamente a un cliente.
+3. Una cuenta puede tener muchas transacciones.
+4. Cada transacción pertenece a una sola cuenta.
+5. Una tarjeta está asociada a una cuenta.
+6. Un empleado puede registrar muchas operaciones.
+7. Las transferencias involucran una cuenta origen y una cuenta destino.
+8. Toda cuenta debe pertenecer a una agencia.
+9. Las alertas de fraude deben quedar registradas.
+10. Un cliente no puede tener dos cuentas con el mismo número.
